@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard/Dashboard';
 import Preferences from './components/Preferences/Preferences';
 import Login from './components/Login/Login';
+import Navigation from './components/Navigation/Navigation';
 
 function App() {
   const [token, setToken] = useState();
@@ -13,20 +14,7 @@ function App() {
   }*/
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <span className="navbar-brand mb-0 h1">Legacy Music Studio</span>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-          <div className='navbar-nav'>
-            <a className="nav-link active" href="/dashboard">Dashboard</a>
-            <a className="nav-link" href="/preferences">Preferences</a>
-          </div>
-        </div>
-        </div>
-      </nav>
+      <Navigation />
       <div className="container">
         <BrowserRouter>
           <Routes>
