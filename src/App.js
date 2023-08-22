@@ -7,11 +7,6 @@ import Login from './components/Login/Login';
 import Navigation from './components/Navigation/Navigation';
 
 function App() {
-  const [token, setToken] = useState();
-
-  /*if(!token) {
-    return <Login setToken={setToken} />
-  }*/
   return (
     <div>
       <Navigation />
@@ -19,7 +14,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/preferences" element={<Preferences />} />
+            <Route path="/settings" element={<Preferences />} />
             <Route exact path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>

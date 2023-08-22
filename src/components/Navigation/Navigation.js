@@ -1,8 +1,9 @@
 import React from 'react';
+import NavigationItem from '../NavigationItem/NavigationItem';
 
-export default function Lesson(props) {
+export default function Navigation(props) {
   return(
-    <nav className="navbar navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{borderBottom: "1px solid rgba(0, 0, 0, 0.175)"}}>
         <div className="container-fluid">
         <span className="navbar-brand mb-0 h1">Legacy Music Studio</span>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,8 +11,10 @@ export default function Lesson(props) {
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <div className='navbar-nav'>
-            <a className="nav-link active" href="/dashboard"><i class="bi bi-speedometer"></i> Dashboard</a>
-            <a className="nav-link" href="/preferences"><i class="bi bi-gear"></i> Preferences</a>
+                <NavigationItem path="/dashboard" icon="speedometer" name="Dashboard" />
+                <NavigationItem path="/calendar" icon="calendar-date" name="Calendar" />
+                <NavigationItem path="/recital" icon="music-note-list" name="Recital" />
+                <NavigationItem path="/settings" icon="gear" name="Settings" />
             </div>
         </div>
         </div>
