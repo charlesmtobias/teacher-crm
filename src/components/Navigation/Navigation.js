@@ -3,7 +3,7 @@ import NavigationItem from '../NavigationItem/NavigationItem';
 
 export default function Navigation(props) {
   return(
-    <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{borderBottom: "1px solid rgba(0, 0, 0, 0.175)"}}>
+    <nav className="navbar navbar-expand-lg" style={{borderBottom: "1px solid rgba(0, 0, 0, 0.175)"}}>
         <div className="container-fluid">
         <span className="navbar-brand mb-0 h1">Legacy Music Studio</span>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

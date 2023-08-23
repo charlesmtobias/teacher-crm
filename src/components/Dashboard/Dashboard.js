@@ -5,6 +5,10 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import Calendar from '../Calendar/Calendar';
 import './Dashboard.css';
 
+const startDate = new Date("08/12/2023")
+const recitalDate = new Date("12/01/2023");
+const today = new Date();
+
 export default function Dashboard() {
   const nextLesson = {
     name: 'Brad Prad',
@@ -57,7 +61,7 @@ export default function Dashboard() {
               <div className='card mb-3'>
                 <div className='card-body'>
                 <div class="alert alert-warning" role="alert">
-                  {getDaysUntilRecital(new Date("12/01/2023"))} away!
+                  {getDaysUntilRecital(today)} away!
                 </div>
                 </div>
               </div>
@@ -84,7 +88,7 @@ export default function Dashboard() {
                         <ProgressBar title="Week" percentage="33" />
                       </div>
                       <div className='col px-0'>
-                        <ProgressBar title="Semester" percentage="14" />
+                        <ProgressBar title="Semester" percentage={100 - Math.floor((getDaysUntilRecital(today) / getDaysUntilRecital(startDate)) * 100)} />
                       </div>
                     </div>
                   </div>
@@ -100,15 +104,17 @@ export default function Dashboard() {
   );
 }
 
-function getDaysUntilRecital(recitalDate) {
-  const date = new Date();
+function getDaysUntilRecital(date) {
   // To calculate the time difference of two dates
   var Difference_In_Time = recitalDate.getTime() - date.getTime();
       
   // To calculate the no. of days between two dates
   var Difference_In_Days = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
 
-  if (Difference_In_Days < 7)
-    return `${Difference_In_Days} days`;
-  return `${Math.floor(Difference_In_Days / 7)} weeks`;
+  return Difference_In_Days;
+
+  //if (Difference_In_Days < 7)
+  //  return `${Difference_In_Days} days`;
+  //return `${Math.floor(Difference_In_Days / 7)} weeks`;
 }
+
