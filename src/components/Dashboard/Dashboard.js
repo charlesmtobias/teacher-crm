@@ -57,7 +57,7 @@ export default function Dashboard() {
               <div className='card mb-3'>
                 <div className='card-body'>
                 <div class="alert alert-warning" role="alert">
-                  9 weeks away!
+                  {getDaysUntilRecital(new Date("12/01/2023"))} away!
                 </div>
                 </div>
               </div>
@@ -98,4 +98,17 @@ export default function Dashboard() {
       </div>
     </div>
   );
+}
+
+function getDaysUntilRecital(recitalDate) {
+  const date = new Date();
+  // To calculate the time difference of two dates
+  var Difference_In_Time = recitalDate.getTime() - date.getTime();
+      
+  // To calculate the no. of days between two dates
+  var Difference_In_Days = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
+
+  if (Difference_In_Days < 7)
+    return `${Difference_In_Days} days`;
+  return `${Math.floor(Difference_In_Days / 7)} weeks`;
 }
