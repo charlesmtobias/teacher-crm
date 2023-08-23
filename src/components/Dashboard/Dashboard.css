@@ -1,0 +1,3 @@
+.resources .card {
+    min-height: calc(100% - 24px - 1.5rem);
+}

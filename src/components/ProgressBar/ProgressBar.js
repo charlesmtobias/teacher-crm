@@ -1,13 +1,21 @@
 import React from 'react';
+import './ProgressBar.scss';
 
-export default function ProgressBar(params) {
+export default function ProgressBar(props) {
   return(
     <div>
-    <span className='fw-bold'>{params.title}</span>
-    <span style={{float: "right"}}>{params.percentage}%</span>
-    <div className="progress mb-2" role="progressbar" ariaLabel="Basic example" ariaValuenow={params.percentage} ariaValuemin="0" ariaValuemax="100">
-        <div className="progress-bar bg-info" style={{width: `${params.percentage}%`}}></div>
-    </div>
+      <div class="progress" data-percentage={props.percentage}>
+        <span class="progress-left">
+          <span class="progress-bar"></span>
+        </span>
+        <span class="progress-right">
+          <span class="progress-bar"></span>
+        </span>
+        <div class="progress-value">
+            {props.percentage}%
+        </div>
+      </div>
+      <p className='text-center mb-0 fw-semibold'>{props.title}</p>
     </div>
   );
 }

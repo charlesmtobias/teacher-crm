@@ -1,0 +1,16 @@
+.btn-cal {
+    border-radius: 50%!important;
+    border: 1px solid rgba(0, 0, 0, 0.175)!important;
+    aspect-ratio: 1;
+    font-size: .8rem!important;
+}
+
+.btn-cal:hover, .active {
+    background-color: #73CDD6!important;
+    border-color: #73CDD6!important;
+    color: white!important;
+}
+
+.btn-cal:hover {
+    opacity: .5;
+}
