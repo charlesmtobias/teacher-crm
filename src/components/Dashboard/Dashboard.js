@@ -67,19 +67,26 @@ export default function Dashboard() {
         <div className='col' style={{height: "100%"}}>
           <div className='card mb-3'>
               <div className='card-body'>
-                <div className='row align-items-center justify-content-center mb-3 text-center'>
-                    <img src={require('../../images/profpic1.jpg')} className='me-2' style={{width: "128px", borderRadius: "50%" }} />
-                    <span className="fw-bold">Charles Tobias</span>
-                </div>
-                <div className='row justify-content-center'>
-                  <div className='col'>
-                    <ProgressBar title="Today" percentage="47" />
+                <div className='row mb-3 align-items-center'>
+                  <div className='col-auto'>
+                    <img src={require('../../images/profpic1.jpg')} className='me-2' style={{width: "115px", borderRadius: "50%" }} />
                   </div>
+
                   <div className='col'>
-                    <ProgressBar title="Week" percentage="33" />
-                  </div>
-                  <div className='col'>
-                    <ProgressBar title="Semester" percentage="14" />
+                    <div className='row'>
+                      <h4 className="fw-semibold">Charles Tobias</h4><br />
+                    </div>
+                    <div className='row justify-content-center'>
+                      <div className='col px-0'>
+                        <ProgressBar title="Today" percentage="47" />
+                      </div>
+                      <div className='col px-0'>
+                        <ProgressBar title="Week" percentage="33" />
+                      </div>
+                      <div className='col px-0'>
+                        <ProgressBar title="Semester" percentage="14" />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <hr />
