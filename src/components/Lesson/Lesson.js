@@ -1,4 +1,5 @@
 import React from 'react';
+import './Lesson.css';
 
 export default function Lesson({lesson, next}) {
   const name = lesson.name;
@@ -19,10 +20,10 @@ export default function Lesson({lesson, next}) {
   }
   return(
     <div className={`card mb-3`}>
-      <div className='card-body'>
-        <span className='fw-semibold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(next, startTime, duration)}</span>
-        <button className={`btn ${sub && 'btn-success'} py-0`} style={{float: "right"}}><i className={`bi bi-${sub ? 'check2' : 'three-dots'}`}></i></button><br />
-        <strong className="card-title">{name}</strong> <span>{icon[type]}</span>
+      <div className={`card-body ${lessonStatus(startTime, duration)}`}>
+        <span className='fw-bold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
+        <button className={`btn ${sub ? 'btn-success' : 'btn-outline-secondary'} py-0`} style={{float: "right"}}><i className={`bi bi-${sub ? 'check2' : 'three-dots'}`}></i></button><br />
+        <div className="card-title">{name} <span>{icon[type]}</span></div>
       </div>
     </div>
   );
@@ -40,17 +41,27 @@ function printTime(time) {
   return `${time.hour % 12 > 0 ? time.hour % 12 : '12'}:${("0" + time.min).slice(-2)}${Math.floor(time.hour / 12) == 0 ? 'AM' : 'PM'}`;
 }
 
-function timeWarning(next, startTime, duration) {
+function getTimeRemaining(startTime) {
   const date = new Date();
   const currentTime = {
     hour: date.getHours(),
     min: date.getMinutes()
   }
-  const timeRemaining = compareTime(startTime, currentTime);
-  if(next && timeRemaining > 0 && timeRemaining <= 30)
+  return compareTime(startTime, currentTime)
+}
+
+function timeWarning(startTime, duration) {
+  const timeRemaining = getTimeRemaining(startTime);
+  if(timeRemaining > 0 && timeRemaining <= 30)
     return <span class="badge bg-warning">In {timeRemaining} Minutes</span>;
-  if(next && timeRemaining < 0 && timeRemaining * -1 <= duration)
+  if(timeRemaining < 0 && timeRemaining * -1 < duration)
     return <span class="badge bg-success">In Progress</span>;
+}
+
+function lessonStatus(startTime, duration) {
+  const timeRemaining = getTimeRemaining(startTime);
+  if(timeRemaining < 0 && timeRemaining * -1 > duration)
+    return 'bg-expired';
 }
 
 function compareTime(time1, time2) {

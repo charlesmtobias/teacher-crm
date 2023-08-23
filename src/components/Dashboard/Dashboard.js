@@ -56,8 +56,9 @@ export default function Dashboard() {
               <h5 className='fw-semibold'>Recital</h5>
               <div className='card mb-3'>
                 <div className='card-body'>
-                  <strong>73 days away!</strong>
-                  <hr />
+                <div class="alert alert-warning" role="alert">
+                  9 weeks away!
+                </div>
                 </div>
               </div>
             </div>
@@ -72,7 +73,7 @@ export default function Dashboard() {
                 </div>
                 <div className='row justify-content-center'>
                   <div className='col'>
-                    <ProgressBar title="Today" percentage="80" />
+                    <ProgressBar title="Today" percentage="47" />
                   </div>
                   <div className='col'>
                     <ProgressBar title="Week" percentage="33" />
