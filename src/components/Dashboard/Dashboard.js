@@ -61,7 +61,7 @@ export default function Dashboard() {
               <div className='card mb-3'>
                 <div className='card-body'>
                 <div class="alert alert-warning" role="alert">
-                  {getDaysUntilRecital(today)} away!
+                  {parseDaysUntilRecital(today)} away!
                 </div>
                 </div>
               </div>
@@ -88,7 +88,7 @@ export default function Dashboard() {
                         <ProgressBar title="Week" percentage="33" />
                       </div>
                       <div className='col px-0'>
-                        <ProgressBar title="Semester" percentage={100 - Math.floor((getDaysUntilRecital(today) / getDaysUntilRecital(startDate)) * 100)} />
+                        <ProgressBar title="Semester" percentage={100 - Math.floor((getDateDifference(today, recitalDate) / getDateDifference(startDate, recitalDate)) * 100)} />
                       </div>
                     </div>
                   </div>
@@ -104,17 +104,20 @@ export default function Dashboard() {
   );
 }
 
-function getDaysUntilRecital(date) {
+function getDateDifference(date1, date2) {
   // To calculate the time difference of two dates
-  var Difference_In_Time = recitalDate.getTime() - date.getTime();
+  var Difference_In_Time = date2.getTime() - date1.getTime();
       
   // To calculate the no. of days between two dates
   var Difference_In_Days = Math.floor(Difference_In_Time / (1000 * 3600 * 24));
 
   return Difference_In_Days;
+}
 
-  //if (Difference_In_Days < 7)
-  //  return `${Difference_In_Days} days`;
-  //return `${Math.floor(Difference_In_Days / 7)} weeks`;
+function parseDaysUntilRecital(today) {
+  var Difference_In_Days = getDateDifference(today, recitalDate);
+  if (Difference_In_Days < 7)
+    return `${Difference_In_Days} days`;
+  return `${Math.floor(Difference_In_Days / 7)} weeks`;
 }
 
