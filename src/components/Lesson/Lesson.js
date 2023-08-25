@@ -13,11 +13,11 @@ const icon = {
 
 export function Lesson({lesson}) {
   const name = lesson.name;
-  const startTime = lesson.startTime;
+  const startTime = new Date(lesson.startTime);
   const duration = lesson.duration;
   const type = lesson.type;
-  const endTime = getEndTime(startTime, duration);
-
+  const endTime = new Date(getEndTime(startTime, duration));
+  console.log(getEndTime(startTime, duration));
   return(
     <div className={`card mb-3`}>
       <div className={`card-body ${lessonStatus(startTime, duration)}`}>
@@ -32,10 +32,10 @@ export function Lesson({lesson}) {
 export function SubLesson({lesson}) {
   const name = lesson.name;
   const teacherName = lesson.teacherName;
-  const startTime = lesson.startTime;
+  const startTime = new Date(lesson.startTime);
   const duration = lesson.duration;
   const type = lesson.type;
-  const endTime = getEndTime(startTime, duration);
+  const endTime = new Date(getEndTime(startTime, duration));
 
   return(
     <div className={`card mb-3`}>
@@ -51,10 +51,10 @@ export function SubLesson({lesson}) {
 
 export function Event({lesson}) {
   const name = lesson.name;
-  const startTime = lesson.startTime;
+  const startTime = new Date(lesson.startTime);
   const duration = lesson.duration;
   const type = lesson.type;
-  const endTime = getEndTime(startTime, duration);
+  const endTime = new Date(getEndTime(startTime, duration));
 
   return(
     <div className={`card mb-3`}>
@@ -68,24 +68,20 @@ export function Event({lesson}) {
 }
 
 function getEndTime(startTime, duration) {
-  let min = startTime.min + duration;
-  let hour = startTime.hour + Math.floor(min / 60);
+  let min = startTime.getMinutes() + duration;
+  let hour = startTime.getHours() + Math.floor(min / 60);
   min %= 60;
 
-  return {hour: hour, min: min};
+  return `${startTime.getFullYear()}-${("0" + (startTime.getMonth()+1)).slice(-2)}-${startTime.getDate()}T${hour}:${("0" + min).slice(-2)}`;
 }
 
 function printTime(time) {
-  return `${time.hour % 12 > 0 ? time.hour % 12 : '12'}:${("0" + time.min).slice(-2)}${Math.floor(time.hour / 12) == 0 ? 'AM' : 'PM'}`;
+  return `${time.getHours() % 12 > 0 ? time.getHours() % 12 : '12'}:${("0" + time.getMinutes()).slice(-2)}${Math.floor(time.getHours() / 12) == 0 ? 'AM' : 'PM'}`;
 }
 
 function getTimeRemaining(startTime) {
-  const date = new Date();
-  const currentTime = {
-    hour: date.getHours(),
-    min: date.getMinutes()
-  }
-  return compareTime(startTime, currentTime)
+  const time2 = new Date();
+  return ((startTime.getHours() * 60) + startTime.getMinutes()) - ((time2.getHours() * 60) + time2.getMinutes());
 }
 
 function timeWarning(startTime, duration) {
@@ -102,6 +98,6 @@ function lessonStatus(startTime, duration) {
     return 'bg-expired';
 }
 
-function compareTime(time1, time2) {
+function getTimeDifference(time1, time2) {
   return ((time1.hour * 60) + time1.min) - ((time2.hour * 60) + time2.min);
 }

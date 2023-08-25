@@ -10,34 +10,35 @@ const startDate = new Date("08/12/2023")
 const recitalDate = new Date("12/01/2023");
 const today = new Date();
 
+//ORDER BY hour DESC, min
 const upcomingLessons = [
   {
       name: 'Harry B. Hinde',
-      startTime: {hour: 12, min:0},
+      startTime: '2023-08-25T12:00',
       duration: 30,
       type: 'bass'
   },
   {
       name: 'Jessica Bessica',
-      startTime: {hour: 12, min:30},
+      startTime: '2023-08-25T12:30',
       duration: 30,
       type: 'drums'
   },
   {
       name: 'Troy Bolton',
-      startTime: {hour: 13, min:0},
+      startTime: '2023-08-25T13:00',
       duration: 60,
       type: 'voice'
   },
   {
       name: 'K.K. Slider',
-      startTime: {hour: 14, min:0},
+      startTime: '2023-08-25T14:00',
       duration: 30,
       type: 'piano'
   },
   {
       name: 'Carlos The Baker',
-      startTime: {hour: 15, min:30},
+      startTime: '2023-08-25T14:30',
       duration: 30,
       type: 'guitar'
   }
@@ -46,14 +47,14 @@ const upcomingLessons = [
 const subLessons = [{
   name: 'Brad Prad',
   teacherName: 'Clarissa Thompson',
-  startTime: {hour: 12, min: 30},
+  startTime: '2023-08-26T12:00',
   duration: 30,
   type: 'piano'
 }];
 
 const todaysEvents = [{
   name: 'Adult Guitar Class',
-  startTime: {hour: 19, min: 0},
+  startTime: '2023-08-25T19:00',
   duration: 120,
   type: 'guitar'
 }];
