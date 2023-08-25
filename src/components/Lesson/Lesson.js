@@ -1,12 +1,11 @@
 import React from 'react';
 import './Lesson.css';
 
-export default function Lesson({lesson, next}) {
+export default function Lesson({lesson, next, sub}) {
   const name = lesson.name;
   const startTime = lesson.startTime;
   const duration = lesson.duration;
   const type = lesson.type;
-  const sub = lesson.sub;
   const endTime = getEndTime(startTime, duration);
 
   const icon = {

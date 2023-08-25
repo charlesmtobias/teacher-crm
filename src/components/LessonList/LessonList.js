@@ -2,7 +2,7 @@ import React from 'react';
 import Lesson from '../Lesson/Lesson';
 import './LessonList.css'
 
-export default function LessonList() {
+export default function LessonList(params) {
     const upcomingLessons = [
         {
             name: 'Harry B. Hinde',
@@ -38,7 +38,7 @@ export default function LessonList() {
     const lessons = [];
     for(let i = 0; i < upcomingLessons.length; i++) {
         const lesson = upcomingLessons[i];
-        lessons.push(<Lesson lesson={lesson} />);
+        lessons.push(<Lesson lesson={lesson} sub={params.type} />);
     }
     return(
         <div className='lesson-list-wrapper'>

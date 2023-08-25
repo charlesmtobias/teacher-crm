@@ -52,7 +52,7 @@ export default function Dashboard() {
               <h5 className='fw-semibold'>Sub Board</h5>
               <div className='card mb-3'>
                 <div className='card-body'>
-                  <LessonList />
+                  <LessonList type="sub" />
                 </div>
               </div>
             </div>
