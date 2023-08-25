@@ -22,6 +22,7 @@ export default function Dashboard() {
     duration: 120,
     type: 'guitar'
   }]
+
   return(
     <div className='mt-3'>
       {/*<div className='row my-3'>
@@ -85,7 +86,7 @@ export default function Dashboard() {
                         <ProgressBar title="Today" percentage="47" />
                       </div>
                       <div className='col px-0'>
-                        <ProgressBar title="Week" percentage="33" />
+                        <ProgressBar title="Week" percentage={Math.floor((today.getDay() / 7) * 100)} />
                       </div>
                       <div className='col px-0'>
                         <ProgressBar title="Semester" percentage={100 - Math.floor((getDateDifference(today, recitalDate) / getDateDifference(startDate, recitalDate)) * 100)} />
