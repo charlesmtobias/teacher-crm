@@ -1,51 +1,83 @@
 import React from 'react';
 import LessonList from '../LessonList/LessonList'
-import Lesson from '../Lesson/Lesson';
+import {Lesson} from '../Lesson/Lesson';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Calendar from '../Calendar/Calendar';
+import Resources from '../Resources/Resources';
 import './Dashboard.css';
 
 const startDate = new Date("08/12/2023")
 const recitalDate = new Date("12/01/2023");
 const today = new Date();
 
-export default function Dashboard() {
-  const nextLesson = {
-    name: 'Brad Prad',
-    startTime: {hour: 12, min: 30},
-    duration: 30,
-    type: 'piano'
+const upcomingLessons = [
+  {
+      name: 'Harry B. Hinde',
+      startTime: {hour: 12, min:0},
+      duration: 30,
+      type: 'bass'
+  },
+  {
+      name: 'Jessica Bessica',
+      startTime: {hour: 12, min:30},
+      duration: 30,
+      type: 'drums'
+  },
+  {
+      name: 'Troy Bolton',
+      startTime: {hour: 13, min:0},
+      duration: 60,
+      type: 'voice'
+  },
+  {
+      name: 'K.K. Slider',
+      startTime: {hour: 14, min:0},
+      duration: 30,
+      type: 'piano'
+  },
+  {
+      name: 'Carlos The Baker',
+      startTime: {hour: 15, min:30},
+      duration: 30,
+      type: 'guitar'
   }
-  const todaysEvents = [{
-    name: 'Adult Guitar Class',
-    startTime: {hour: 19, min: 0},
-    duration: 120,
-    type: 'guitar'
-  }]
+];
+
+const subLessons = [{
+  name: 'Brad Prad',
+  teacherName: 'Clarissa Thompson',
+  startTime: {hour: 12, min: 30},
+  duration: 30,
+  type: 'piano'
+}];
+
+const todaysEvents = [{
+  name: 'Adult Guitar Class',
+  startTime: {hour: 19, min: 0},
+  duration: 120,
+  type: 'guitar'
+}];
+
+export default function Dashboard() {
 
   return(
     <div className='mt-3'>
-      {/*<div className='row my-3'>
-        <h2 className='fw-bold'>Hello Charles! 🤗</h2>
-      </div>*/}
       <div className='row'>
         <div className='col-xl-8 col-lg-7 col-md-6 mb-3'>
           <div className='row'>
             <div className='col-lg-6 next-lesson'>
               <div>
                 <h5 className="fw-semibold">Next Lesson</h5>
-                <Lesson lesson={nextLesson} next="true" />
+                <Lesson lesson={upcomingLessons[0]} />
               </div>
               <div className='todays-events'>
                 <h5 className="fw-semibold">Today's Events</h5>
-                <Lesson lesson={todaysEvents[0]} next="true" />
+                <LessonList list={todaysEvents} type="event" />
               </div>
             </div>
             <div className='col-lg-6 resources'>
               <h5 className='fw-semibold'>Resources</h5>
-              <div className='card mb-3'>
-                <div className='card-body'></div>
-              </div>
+              <Resources />
             </div>
           </div>
           <div className='row'>
@@ -53,7 +85,7 @@ export default function Dashboard() {
               <h5 className='fw-semibold'>Sub Board</h5>
               <div className='card mb-3'>
                 <div className='card-body'>
-                  <LessonList type="sub" />
+                  <LessonList list={subLessons} type="sub" />
                 </div>
               </div>
             </div>
@@ -96,7 +128,7 @@ export default function Dashboard() {
                 </div>
                 <hr />
                 <Calendar />
-                <LessonList />
+                <LessonList list={upcomingLessons} type="lesson" />
               </div>
           </div>
         </div>

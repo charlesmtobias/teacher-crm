@@ -1,27 +1,66 @@
 import React from 'react';
 import './Lesson.css';
 
-export default function Lesson({lesson, next, sub}) {
+const icon = {
+  guitar: '🎸',
+  piano: '🎹',
+  drums: '🥁',
+  voice: '🎤',
+  bass: '🎸',
+  violin: '🎻',
+  saxophone: '🎷'
+}
+
+export function Lesson({lesson}) {
   const name = lesson.name;
   const startTime = lesson.startTime;
   const duration = lesson.duration;
   const type = lesson.type;
   const endTime = getEndTime(startTime, duration);
 
-  const icon = {
-    guitar: '🎸',
-    piano: '🎹',
-    drums: '🥁',
-    voice: '🎤',
-    bass: '🎸',
-    violin: '🎻',
-    saxophone: '🎷'
-  }
   return(
     <div className={`card mb-3`}>
       <div className={`card-body ${lessonStatus(startTime, duration)}`}>
         <span className='fw-bold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
-        <button className={`btn ${sub ? 'btn-success' : 'btn-outline-secondary'} py-0`} style={{float: "right"}}><i className={`bi bi-${sub ? 'check2' : 'three-dots'}`}></i></button><br />
+        <button className={`btn btn-outline-secondary py-0`} style={{float: "right"}}><i className={`bi bi-three-dots`}></i></button><br />
+        <div className="card-title">{name} <span>{icon[type]}</span></div>
+      </div>
+    </div>
+  );
+}
+
+export function SubLesson({lesson}) {
+  const name = lesson.name;
+  const teacherName = lesson.teacherName;
+  const startTime = lesson.startTime;
+  const duration = lesson.duration;
+  const type = lesson.type;
+  const endTime = getEndTime(startTime, duration);
+
+  return(
+    <div className={`card mb-3`}>
+      <div className={`card-body ${lessonStatus(startTime, duration)}`}>
+        <span className='fw-bold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
+        <button className={`btn btn-success py-0`} style={{float: "right"}}><i className={`bi bi-check2`}></i></button><br />
+        <div className="card-title">{name} {icon[type]}</div>
+        {teacherName}
+      </div>
+    </div>
+  );
+}
+
+export function Event({lesson}) {
+  const name = lesson.name;
+  const startTime = lesson.startTime;
+  const duration = lesson.duration;
+  const type = lesson.type;
+  const endTime = getEndTime(startTime, duration);
+
+  return(
+    <div className={`card mb-3`}>
+      <div className={`card-body ${lessonStatus(startTime, duration)}`}>
+        <span className='fw-bold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
+        <button className={`btn btn-outline-secondary py-0`} style={{float: "right"}}><i className={`bi bi-three-dots`}></i></button><br />
         <div className="card-title">{name} <span>{icon[type]}</span></div>
       </div>
     </div>
