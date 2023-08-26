@@ -106,8 +106,8 @@ export default function Dashboard() {
           <div className='card mb-3'>
               <div className='card-body'>
                 <div className='row mb-3 align-items-center'>
-                  <div className='col-auto'>
-                    <img src={require('../../images/profpic1.jpg')} className='me-2' style={{width: "115px", borderRadius: "50%" }} />
+                  <div className='col-auto pe-0'>
+                    <img src={require('../../images/profpic1.jpg')} className='rounded' style={{width: "115px" }} />
                   </div>
 
                   <div className='col'>
@@ -121,7 +121,7 @@ export default function Dashboard() {
                       <div className='col px-0'>
                         <ProgressBar title="Week" percentage={Math.floor((today.getDay() / 7) * 100)} />
                       </div>
-                      <div className='col px-0'>
+                      <div className='col ps-0'>
                         <ProgressBar title="Semester" percentage={100 - Math.floor((getDateDifference(today, recitalDate) / getDateDifference(startDate, recitalDate)) * 100)} />
                       </div>
                     </div>

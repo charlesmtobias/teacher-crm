@@ -7,7 +7,7 @@ export default function Calendar() {
     let calendar = [];
 
     for (let i = 0; i < 7; i++) {
-        calendar.push(<div className='col pe-0'>
+        calendar.push(<div className='col px-0'>
                         <h6 className='fw-bold'>{DAYS_OF_THE_WEEK[i]}</h6>
                         <button id={i} className={`btn btn-cal fw-semibold ${getCurrentDayOfWeek() == i ? 'active' : ''}`}>{FIRST_DATE + i}</button>
                     </div>);
