@@ -4,7 +4,10 @@ import './LessonList.css'
 
 export default function LessonList(params) {
     const lessons = [];
-
+    if(!params.list) {
+        return (<div className='lesson-list-wrapper'>No Lessons
+    </div>);
+    }
     if(params.type == 'lesson') {
         params.list.forEach(lesson => {
             lessons.push(<Lesson lesson={lesson} />)

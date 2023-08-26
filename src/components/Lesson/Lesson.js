@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Lesson.css';
 
 const icon = {
@@ -15,17 +15,33 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export function Lesson({lesson}) {
-  const name = lesson.name;
-  const startTime = new Date(lesson.startTime);
+  const [student, setStudent] = useState({});
+
+  useEffect(() => {
+    if(lesson) {
+    fetch(`http://localhost:4000/api/students/${lesson.student_id}`).then(response => {
+      response.json().then(jsonResponse => {
+        const student = jsonResponse.student;
+        return setStudent(student);
+      });
+    });
+  }
+  }, [lesson]);
+  
+  if(!lesson)
+    return;
+
+  const name = student.name;
+  const startTime = new Date(lesson.start_time);
   const duration = lesson.duration;
-  const type = lesson.type;
+  const instrument = lesson.instrument;
   const endTime = new Date(getEndTime(startTime, duration));
   return(
     <div className={`card mb-3`}>
       <div className={`card-body ${lessonStatus(startTime, duration)}`}>
         <span className='fw-bold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
         <button className={`btn btn-outline-secondary py-0`} style={{float: "right"}}><i className={`bi bi-three-dots`}></i></button><br />
-       {name} {icon[type]}
+       {name} {icon[instrument]}
       </div>
     </div>
   );
@@ -45,7 +61,7 @@ export function SubLesson({lesson}) {
         <div className='card-body'>
           <span className='fw-bold'>{WEEKDAYS[startTime.getDay()]}, {MONTHS[startTime.getMonth()]} {startTime.getDate()}, {printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
           <button className={`btn btn-success py-0`} style={{float: "right"}}><i className={`bi bi-check2`}></i></button><br />
-          {name} {icon[type]} <span class="badge bg-danger">{teacherName}</span>
+          {name} {icon[type]} <span className="badge bg-danger">{teacherName}</span>
         </div>
       </div>
     );
@@ -86,9 +102,9 @@ function getMillisecondsRemaining(startTime) {
 function timeWarning(startTime, duration) {
   const minsRemaining = Math.floor(getMillisecondsRemaining(startTime) / 60000);
   if(minsRemaining > 0 && minsRemaining <= 30)
-    return <span class="badge bg-warning">In {minsRemaining} Minutes</span>;
+    return <span className="badge bg-warning">In {minsRemaining} Minutes</span>;
   if(minsRemaining < 0 && minsRemaining * -1 < duration)
-    return <span class="badge bg-success">In Progress</span>;
+    return <span className="badge bg-success">In Progress</span>;
 }
 
 function lessonStatus(startTime, duration) {

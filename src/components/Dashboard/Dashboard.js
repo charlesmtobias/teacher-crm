@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LessonList from '../LessonList/LessonList'
 import {Lesson} from '../Lesson/Lesson';
 import ProgressBar from '../ProgressBar/ProgressBar';
@@ -9,12 +9,13 @@ import './Dashboard.css';
 const startDate = new Date("08/12/2023")
 const recitalDate = new Date("12/01/2023");
 const today = new Date();
+const MY_ID = 1;
 
 //ORDER BY hour DESC, min
 const upcomingLessons = [
   {
       name: 'Harry B. Hinde',
-      startTime: '2023-08-26T14:00',
+      startTime: '2023-08-25T11:00',
       duration: 30,
       type: 'bass'
   },
@@ -60,6 +61,25 @@ const todaysEvents = [{
 }];
 
 export default function Dashboard() {
+  
+  const [teacher, setTeacher] = useState({});
+  const [lessons, setLessons] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/api/teachers/${MY_ID}`).then(response => {
+      response.json().then(jsonResponse => {
+        const teacher = jsonResponse.teacher;
+        return setTeacher(teacher);
+      });
+    });
+
+    fetch(`http://localhost:4000/api/teachers/${MY_ID}/lessons`).then(response => {
+      response.json().then(jsonResponse => {
+        const lessons = jsonResponse.lessons;
+        setLessons(lessons);
+      });
+    });
+  }, []);
 
   return(
     <div className='mt-3'>
@@ -69,7 +89,7 @@ export default function Dashboard() {
             <div className='col-lg-6 next-lesson'>
               <div>
                 <h5 className="fw-semibold">Next Lesson</h5>
-                <Lesson lesson={upcomingLessons[0]} />
+                <Lesson lesson={lessons[0]} />
               </div>
               <div className='todays-events'>
                 <h5 className="fw-semibold">Today's Events</h5>
@@ -94,7 +114,7 @@ export default function Dashboard() {
               <h5 className='fw-semibold'>Recital</h5>
               <div className='card mb-3'>
                 <div className='card-body'>
-                <div class="alert alert-warning" role="alert">
+                <div className="alert alert-warning" role="alert">
                   {parseDaysUntilRecital(today)} away!
                 </div>
                 </div>
@@ -112,7 +132,7 @@ export default function Dashboard() {
 
                   <div className='col'>
                     <div className='row'>
-                      <h4 className="fw-semibold">Charles Tobias</h4><br />
+                      <h4 className="fw-semibold">{teacher.name}</h4><br />
                     </div>
                     <div className='row justify-content-center'>
                       <div className='col px-0'>
@@ -129,7 +149,7 @@ export default function Dashboard() {
                 </div>
                 <hr />
                 <Calendar />
-                <LessonList list={upcomingLessons} type="lesson" />
+                <LessonList list={lessons} type="lesson" />
               </div>
           </div>
         </div>

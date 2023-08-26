@@ -4,14 +4,14 @@ import './ProgressBar.scss';
 export default function ProgressBar(props) {
   return(
     <div>
-      <div class="progress" data-percentage={props.percentage}>
-        <span class="progress-left">
-          <span class="progress-bar"></span>
+      <div className="progress" data-percentage={props.percentage}>
+        <span className="progress-left">
+          <span className="progress-bar"></span>
         </span>
-        <span class="progress-right">
-          <span class="progress-bar"></span>
+        <span className="progress-right">
+          <span className="progress-bar"></span>
         </span>
-        <div class="progress-value">
+        <div className="progress-value">
             {props.percentage}%
         </div>
       </div>
