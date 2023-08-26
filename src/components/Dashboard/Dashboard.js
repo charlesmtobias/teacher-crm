@@ -47,7 +47,7 @@ const upcomingLessons = [
 const subLessons = [{
   name: 'Brad Prad',
   teacherName: 'Clarissa Thompson',
-  startTime: '2023-08-26T12:00',
+  startTime: '2023-08-26T19:00',
   duration: 30,
   type: 'piano'
 }];

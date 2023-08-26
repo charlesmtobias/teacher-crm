@@ -11,19 +11,21 @@ const icon = {
   saxophone: '🎷'
 }
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 export function Lesson({lesson}) {
   const name = lesson.name;
   const startTime = new Date(lesson.startTime);
   const duration = lesson.duration;
   const type = lesson.type;
   const endTime = new Date(getEndTime(startTime, duration));
-  console.log(getEndTime(startTime, duration));
   return(
     <div className={`card mb-3`}>
       <div className={`card-body ${lessonStatus(startTime, duration)}`}>
         <span className='fw-bold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
         <button className={`btn btn-outline-secondary py-0`} style={{float: "right"}}><i className={`bi bi-three-dots`}></i></button><br />
-        <div className="card-title">{name} <span>{icon[type]}</span></div>
+       {name} {icon[type]}
       </div>
     </div>
   );
@@ -37,16 +39,17 @@ export function SubLesson({lesson}) {
   const type = lesson.type;
   const endTime = new Date(getEndTime(startTime, duration));
 
-  return(
-    <div className={`card mb-3`}>
-      <div className={`card-body ${lessonStatus(startTime, duration)}`}>
-        <span className='fw-bold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
-        <button className={`btn btn-success py-0`} style={{float: "right"}}><i className={`bi bi-check2`}></i></button><br />
-        <div className="card-title">{name} {icon[type]}</div>
-        {teacherName}
+  if(startTime.getTime() > new Date().getTime()) {
+    return(
+      <div className={`card mb-3`}>
+        <div className='card-body'>
+          <span className='fw-bold'>{WEEKDAYS[startTime.getDay()]}, {MONTHS[startTime.getMonth()]} {startTime.getDate()}, {printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
+          <button className={`btn btn-success py-0`} style={{float: "right"}}><i className={`bi bi-check2`}></i></button><br />
+          {name} {icon[type]} <span class="badge bg-danger">{teacherName}</span>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export function Event({lesson}) {
@@ -61,7 +64,7 @@ export function Event({lesson}) {
       <div className={`card-body ${lessonStatus(startTime, duration)}`}>
         <span className='fw-bold'>{printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
         <button className={`btn btn-outline-secondary py-0`} style={{float: "right"}}><i className={`bi bi-three-dots`}></i></button><br />
-        <div className="card-title">{name} <span>{icon[type]}</span></div>
+        {name} {icon[type]}
       </div>
     </div>
   );
@@ -93,8 +96,9 @@ function timeWarning(startTime, duration) {
 }
 
 function lessonStatus(startTime, duration) {
-  const timeRemaining = getTimeRemaining(startTime);
-  if(timeRemaining < 0 && timeRemaining * -1 > duration)
+  const now = new Date();
+  const endTime = new Date(getEndTime(startTime, duration));
+  if(now.getTime() > endTime.getTime())
     return 'bg-expired';
 }
 
