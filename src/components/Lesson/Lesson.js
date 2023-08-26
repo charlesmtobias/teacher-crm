@@ -57,7 +57,7 @@ export function Event({lesson}) {
   const startTime = new Date(lesson.startTime);
   const duration = lesson.duration;
   const type = lesson.type;
-  const endTime = new Date(getEndTime(startTime, duration));
+  const endTime = getEndTime(startTime, duration);
 
   return(
     <div className={`card mb-3`}>
@@ -71,27 +71,23 @@ export function Event({lesson}) {
 }
 
 function getEndTime(startTime, duration) {
-  let min = startTime.getMinutes() + duration;
-  let hour = startTime.getHours() + Math.floor(min / 60);
-  min %= 60;
-
-  return `${startTime.getFullYear()}-${("0" + (startTime.getMonth()+1)).slice(-2)}-${startTime.getDate()}T${hour}:${("0" + min).slice(-2)}`;
+  return new Date(startTime.getTime() + (duration * 60000));
 }
 
 function printTime(time) {
   return `${time.getHours() % 12 > 0 ? time.getHours() % 12 : '12'}:${("0" + time.getMinutes()).slice(-2)}${Math.floor(time.getHours() / 12) == 0 ? 'AM' : 'PM'}`;
 }
 
-function getTimeRemaining(startTime) {
+function getMillisecondsRemaining(startTime) {
   const time2 = new Date();
-  return ((startTime.getHours() * 60) + startTime.getMinutes()) - ((time2.getHours() * 60) + time2.getMinutes());
+  return startTime.getTime() - time2.getTime();
 }
 
 function timeWarning(startTime, duration) {
-  const timeRemaining = getTimeRemaining(startTime);
-  if(timeRemaining > 0 && timeRemaining <= 30)
-    return <span class="badge bg-warning">In {timeRemaining} Minutes</span>;
-  if(timeRemaining < 0 && timeRemaining * -1 < duration)
+  const minsRemaining = Math.floor(getMillisecondsRemaining(startTime) / 60000);
+  if(minsRemaining > 0 && minsRemaining <= 30)
+    return <span class="badge bg-warning">In {minsRemaining} Minutes</span>;
+  if(minsRemaining < 0 && minsRemaining * -1 < duration)
     return <span class="badge bg-success">In Progress</span>;
 }
 
@@ -100,8 +96,4 @@ function lessonStatus(startTime, duration) {
   const endTime = new Date(getEndTime(startTime, duration));
   if(now.getTime() > endTime.getTime())
     return 'bg-expired';
-}
-
-function getTimeDifference(time1, time2) {
-  return ((time1.hour * 60) + time1.min) - ((time2.hour * 60) + time2.min);
 }

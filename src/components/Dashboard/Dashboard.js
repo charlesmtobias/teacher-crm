@@ -14,7 +14,7 @@ const today = new Date();
 const upcomingLessons = [
   {
       name: 'Harry B. Hinde',
-      startTime: '2023-08-25T12:00',
+      startTime: '2023-08-26T14:00',
       duration: 30,
       type: 'bass'
   },
