@@ -9,6 +9,7 @@ db.run('CREATE TABLE IF NOT EXISTS Teacher (' +
 db.run('CREATE TABLE IF NOT EXISTS Student (' +
     'id INTEGER NOT NULL PRIMARY KEY, ' +
     'name TEXT NOT NULL, ' +
+    'profile_picture_url TEXT' +
     'is_current_student INTEGER DEFAULT 1)');
 
 db.run('CREATE TABLE IF NOT EXISTS Event (' +

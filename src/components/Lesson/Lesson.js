@@ -59,7 +59,7 @@ export function SubLesson({lesson}) {
     return(
       <div className={`card mb-3`}>
         <div className='card-body'>
-          <span className='fw-bold'>{WEEKDAYS[startTime.getDay()]}, {MONTHS[startTime.getMonth()]} {startTime.getDate()}, {printTime(startTime)} - {printTime(endTime)} {timeWarning(startTime, duration)}</span>
+          <span className='fw-bold'>{WEEKDAYS[startTime.getDay()]}, {MONTHS[startTime.getMonth()]} {startTime.getDate()}, {printTime(startTime)} - {printTime(endTime)}</span>
           <button className={`btn btn-success py-0`} style={{float: "right"}}><i className={`bi bi-check2`}></i></button><br />
           {name} {icon[type]} <span className="badge bg-danger">{teacherName}</span>
         </div>

@@ -12,38 +12,6 @@ const today = new Date();
 const MY_ID = 1;
 
 //ORDER BY hour DESC, min
-const upcomingLessons = [
-  {
-      name: 'Harry B. Hinde',
-      startTime: '2023-08-25T11:00',
-      duration: 30,
-      type: 'bass'
-  },
-  {
-      name: 'Jessica Bessica',
-      startTime: '2023-08-25T12:30',
-      duration: 30,
-      type: 'drums'
-  },
-  {
-      name: 'Troy Bolton',
-      startTime: '2023-08-25T13:00',
-      duration: 60,
-      type: 'voice'
-  },
-  {
-      name: 'K.K. Slider',
-      startTime: '2023-08-25T14:00',
-      duration: 30,
-      type: 'piano'
-  },
-  {
-      name: 'Carlos The Baker',
-      startTime: '2023-08-25T14:30',
-      duration: 30,
-      type: 'guitar'
-  }
-];
 
 const subLessons = [{
   name: 'Brad Prad',
@@ -127,7 +95,7 @@ export default function Dashboard() {
               <div className='card-body'>
                 <div className='row mb-3 align-items-center'>
                   <div className='col-auto pe-0'>
-                    <img src={require('../../images/profpic1.jpg')} className='rounded' style={{width: "115px" }} />
+                    <img src={teacher.profile_picture_url || `https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg?crop=0.668xw:1.00xh;0.119xw,0&resize=1200:*`} className='rounded' style={{width: "115px" }} />
                   </div>
 
                   <div className='col'>
