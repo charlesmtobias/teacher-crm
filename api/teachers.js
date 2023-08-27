@@ -35,7 +35,7 @@ teachersRouter.get('/:teacherId', (req, res, next) => {
 })
 
 teachersRouter.get('/:teacherId/lessons', (req, res, next) => {
-    db.all('SELECT * FROM Event WHERE Event.teacher_id = $teacherId AND Event.event_type = "lesson"', 
+    db.all("SELECT * FROM Event WHERE Event.teacher_id = $teacherId AND Event.event_type = 'lesson' AND Event.start_time LIKE DATE('now', 'localtime')||'%'", 
     {
         $teacherId: req.teacher.id
     }, (err, lessons) => {
