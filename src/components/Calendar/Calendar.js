@@ -1,16 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Calendar.css';
+import { getActiveElement } from '@testing-library/user-event/dist/utils';
 
 export default function Calendar() {
+    const [active, setActive] = useState(getCurrentDayOfWeek());
     const FIRST_DATE = getFirstDateThisWeek();
     const DAYS_OF_THE_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     let calendar = [];
     let newDate = new Date();
+
+    function handleClick(event, i) {
+        setActive(i);
+    }
+
     for (let i = 0; i < 7; i++) {
-        console.log(newDate.getDate());
         calendar.push(<div className='col px-0'>
                         <h6 className='fw-bold'>{DAYS_OF_THE_WEEK[i]}</h6>
-                        <button id={i} className={`btn btn-cal fw-semibold ${getCurrentDayOfWeek() == i ? 'active' : ''}`}>{("0" + newDate.getDate()).slice(-2)}</button>
+                        <button id={i} className={`btn btn-cal fw-semibold ${active == i ? 'active' : ''}`} onClick={(event) => handleClick(event, i)}>{("0" + newDate.getDate()).slice(-2)}</button>
                     </div>);
         newDate.setDate(newDate.getDate() + 1);
     }

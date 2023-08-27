@@ -35,7 +35,7 @@ teachersRouter.get('/:teacherId', (req, res, next) => {
 })
 
 teachersRouter.get('/:teacherId/lessons', (req, res, next) => {
-    db.all("SELECT * FROM Event WHERE Event.teacher_id = $teacherId AND Event.event_type = 'lesson' AND Event.start_time LIKE DATE('now', 'localtime')||'%'", 
+    db.all("SELECT * FROM Event WHERE Event.teacher_id = $teacherId AND Event.event_type = 'lesson' AND Event.start_time LIKE DATE('now', 'localtime')||'%' ORDER BY Event.start_time ASC", 
     {
         $teacherId: req.teacher.id
     }, (err, lessons) => {
@@ -43,6 +43,19 @@ teachersRouter.get('/:teacherId/lessons', (req, res, next) => {
             next(err);
         } else {
             res.status(200).send({lessons: lessons});
+        }
+    })
+})
+
+teachersRouter.get('/:teacherId/next_lesson', (req, res, next) => {
+    db.get("SELECT * FROM Event WHERE Event.teacher_id = $teacherId AND Event.event_type = 'lesson' AND REPLACE(Event.start_time,'T',' ') > DATETIME('now', 'localtime')", 
+    {
+        $teacherId: req.teacher.id
+    }, (err, lesson) => {
+        if(err) {
+            next(err);
+        } else {
+            res.status(200).send({lesson: lesson});
         }
     })
 })
