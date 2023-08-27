@@ -19,13 +19,13 @@ export function Lesson({lesson}) {
 
   useEffect(() => {
     if(lesson) {
-    fetch(`http://localhost:4000/api/students/${lesson.student_id}`).then(response => {
-      response.json().then(jsonResponse => {
-        const student = jsonResponse.student;
-        return setStudent(student);
+      fetch(`http://localhost:4000/api/students/${lesson.student_id}`).then(response => {
+        response.json().then(jsonResponse => {
+          const student = jsonResponse.student;
+          return setStudent(student);
+        });
       });
-    });
-  }
+    }
   }, [lesson]);
   
   if(!lesson)

@@ -13,14 +13,6 @@ const MY_ID = 1;
 
 //ORDER BY hour DESC, min
 
-const subLessons = [{
-  name: 'Brad Prad',
-  teacherName: 'Clarissa Thompson',
-  startTime: '2023-08-26T19:00',
-  duration: 30,
-  type: 'piano'
-}];
-
 const todaysEvents = [{
   name: 'Adult Guitar Class',
   startTime: '2023-08-25T19:00',
@@ -32,6 +24,8 @@ export default function Dashboard() {
   
   const [teacher, setTeacher] = useState({});
   const [lessons, setLessons] = useState([]);
+  const [nextLesson, setNextLesson] = useState({});
+  const [subLessons, setSubLessons] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:4000/api/teachers/${MY_ID}`).then(response => {
@@ -47,6 +41,13 @@ export default function Dashboard() {
         setLessons(lessons);
       });
     });
+
+    fetch(`http://localhost:4000/api/teachers/${MY_ID}/next_lesson`).then(response => {
+      response.json().then(jsonResponse => {
+        const lesson = jsonResponse.lesson;
+        setNextLesson(lesson);
+      });
+    });
   }, []);
 
   return(
@@ -57,7 +58,13 @@ export default function Dashboard() {
             <div className='col-lg-6 next-lesson'>
               <div>
                 <h5 className="fw-semibold">Next Lesson</h5>
-                <Lesson lesson={lessons[0]} />
+                {nextLesson ? <Lesson lesson={nextLesson} /> : 
+                  <div className={`card mb-3`}>
+                    <div className={`card-body`}>
+                      <span className='fw-bold'>No Upcoming Lessons</span>
+                    </div>
+                  </div>
+                }
               </div>
               <div className='todays-events'>
                 <h5 className="fw-semibold">Today's Events</h5>
@@ -74,7 +81,7 @@ export default function Dashboard() {
               <h5 className='fw-semibold'>Sub Board</h5>
               <div className='card mb-3'>
                 <div className='card-body'>
-                  <LessonList list={subLessons} type="sub" />
+                  {subLessons.length > 0 ? <LessonList list={subLessons} type="sub" /> : <span className='fw-bold'>No Subs Needed</span>}
                 </div>
               </div>
             </div>
